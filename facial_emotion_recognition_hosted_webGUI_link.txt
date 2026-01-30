@@ -1,0 +1,11 @@
+Name: Babadina Noah Mayowa
+
+Matric Number: 250000224
+
+Machine Learning Algorithm Used : Convolutional Neural Network (CNN)
+
+Model persistence method used : HDF5 format (Hierarchical Data Format)
+
+Live URL of the hosted application:
+
+GitHub repository link : https://github.com/DatadrivenNoah/Facial_Emotion_Recognition_Project_Babadina_Noah_Mayowa_250000224

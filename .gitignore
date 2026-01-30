@@ -1,0 +1,40 @@
+# Virtual environments
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# =========================
+# MACHINE LEARNING FILES
+# =========================
+
+# Datasets (VERY IMPORTANT)
+train/
+test/
+data/
+dataset/
+datasets/
+images/
+videos/
+
+# Trained models
+*.h5
+*.keras
+*.pt
+*.pth
+*.onnx
+
+# Logs
+*.log
