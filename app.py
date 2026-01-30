@@ -3,6 +3,8 @@ from PIL import Image, ImageOps
 import numpy as np
 from datetime import datetime
 import tensorflow as tf
+import os
+import urllib.request
 
 # -----------------------------
 # CONFIG
@@ -49,12 +51,25 @@ camera_file = st.camera_input("Or take a photo with your webcam")
 image_file = uploaded_file if uploaded_file is not None else camera_file
 
 # -----------------------------
-# EMOTION MODEL LOADING
+# MODEL DOWNLOAD + LOADING (HUGGING FACE)
 # -----------------------------
-# Replace with your own model path
-model = tf.keras.models.load_model("emotion_model.h5")  
+MODEL_PATH = "emotion_model.h5"
+MODEL_URL = "https://huggingface.co/DataDrivenNoah/emotion-detector-model/resolve/main/emotion_model.h5"
 
+@st.cache_resource
+def load_emotion_model():
+    if not os.path.exists(MODEL_PATH):
+        with st.spinner("📥 Downloading emotion model..."):
+            urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+    return tf.keras.models.load_model(MODEL_PATH)
+
+model = load_emotion_model()
+
+# -----------------------------
+# EMOTION LABELS
+# -----------------------------
 EMOTIONS = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
+
 EMOTION_DETAILS = {
     "Angry": ("Feeling angry", "Try to relax and take deep breaths."),
     "Disgust": ("Feeling disgusted", "Take a moment to step away."),
@@ -69,11 +84,11 @@ EMOTION_DETAILS = {
 # IMAGE PROCESSING FUNCTION
 # -----------------------------
 def preprocess_image(img):
-    img = ImageOps.grayscale(img)  # convert to grayscale if model requires
-    img = img.resize((48, 48))      # resize to model input size
-    img_array = np.array(img) / 255.0  # normalize
-    img_array = np.expand_dims(img_array, axis=-1)  # add channel dimension
-    img_array = np.expand_dims(img_array, axis=0)   # add batch dimension
+    img = ImageOps.grayscale(img)
+    img = img.resize((48, 48))
+    img_array = np.array(img) / 255.0
+    img_array = np.expand_dims(img_array, axis=-1)
+    img_array = np.expand_dims(img_array, axis=0)
     return img_array
 
 # -----------------------------
@@ -91,7 +106,7 @@ if image_file is not None:
             emotion_index = int(np.argmax(predictions))
             emotion = EMOTIONS[emotion_index]
             confidence = float(predictions[0][emotion_index] * 100)
-        
+
         description, recommendation = EMOTION_DETAILS[emotion]
 
         st.markdown("<div class='glass'>", unsafe_allow_html=True)
@@ -107,4 +122,3 @@ if image_file is not None:
         st.exception(e)
 
 st.markdown("</div>", unsafe_allow_html=True)
-
