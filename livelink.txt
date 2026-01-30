@@ -1,1 +1,2 @@
-https://datadrivennoah-facial-emotion-recognition-project-ba-app-wa8pi8.streamlit.app/
+https://huggingface.co/DataDrivenNoah/emotion-detector-model/resolve/main/emotion_model.h5
+
