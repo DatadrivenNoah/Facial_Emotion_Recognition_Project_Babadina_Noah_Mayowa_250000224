@@ -6,6 +6,6 @@ Machine Learning Algorithm Used : Convolutional Neural Network (CNN)
 
 Model persistence method used : HDF5 format (Hierarchical Data Format)
 
-Live URL of the hosted application:
+Live URL of the hosted application:https://datadrivennoah-facial-emotion-recognition-project-ba-app-wa8pi8.streamlit.app/
 
 GitHub repository link : https://github.com/DatadrivenNoah/Facial_Emotion_Recognition_Project_Babadina_Noah_Mayowa_250000224
